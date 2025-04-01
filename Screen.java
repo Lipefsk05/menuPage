@@ -1,37 +1,54 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
+import java.io.IOException;
 import javax.swing.*;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
 
 
 public class Screen extends JFrame{
+
+    private Font font;
+
     public Screen(){
     
-        JButton jButtonLink = new JButton("Github");
-        JButton jButtonTps = new JButton("Tps");
+//  FONT LOAD ============
+        ComicFont();
+//  ======================
 
-        Font font = new Font("Arial", Font.BOLD, 40);
-        Color white = new Color(0, 0, 0);
-        Color black = new Color(255, 255, 255);
-
+//  COLORS  =============================================
+        Color STR_DARK_GRAY = new Color(40, 40, 40);
+        
         setTitle("Menu Page");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
         setSize(800, 500);
         setLocationRelativeTo(null);
         setLayout(null);
-        
-        
         // setIconImage(getIconImage());
-
-        jButtonLink.setBounds(300, 200, 200, 100);
-        jButtonLink.setForeground(black);
-        jButtonLink.setBackground(white);
-        jButtonLink.setFont(font);
+        getContentPane().setBackground(Color.DARK_GRAY);
+//  ====================================================
         
-        jButtonTps.setBounds(300, 350, 200, 100);
-        jButtonTps.setForeground(black);
-        jButtonTps.setBackground(white);
-        jButtonTps.setFont(font);
+        
+//  BUTTONS =================================================================
+        
+//      Github
+        JButton jButtonLink = new JButton("Github");
+        jButtonLink.setBounds(300, 200, 200, 100);
+        jButtonLink.setForeground(Color.WHITE);
+        jButtonLink.setBackground(STR_DARK_GRAY);
+        jButtonLink.setBorder(null);
+        jButtonLink.setFont(font);
+
+        jButtonLink.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jButtonLink.setBackground(Color.WHITE);
+                jButtonLink.setForeground(STR_DARK_GRAY);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jButtonLink.setBackground(STR_DARK_GRAY);
+                jButtonLink.setForeground(Color.WHITE);
+            }
+        });
 
         jButtonLink.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -62,33 +79,96 @@ public class Screen extends JFrame{
                 }
             }
         });
+//      --------------------------------------
         
+//      TPs
+        JButton jButtonTps = new JButton("Tps");
+        jButtonTps.setBounds(300, 350, 200, 100);
+        jButtonTps.setForeground(Color.WHITE);
+        jButtonTps.setBackground(STR_DARK_GRAY);
+        jButtonTps.setFont(font);
+        jButtonTps.setBorder(null);
+
         jButtonTps.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
-        
                     String os = System.getProperty("os.name").toLowerCase();
-                    String command = null;
+                    ProcessBuilder processBuilder;
+                    
                     if (os.contains("win")) {
-                        command = "";
-                    } else if (os.contains("mac")) {
-                        // command = "open ";
+                        processBuilder = new ProcessBuilder("cmd", "/c", "start", "code", "C:\\Users\\lipe\\facul\\cc-puc\\cc-2-periodo\\tps");
                     } else {
-                        command = "cd /home/lipe/facul/cc-puc/cc-2-periodo/tps/ ; code .";
+                        processBuilder = new ProcessBuilder("/bin/sh", "-c", "cd /home/lipe/facul/cc-puc/cc-2-periodo/tps && code .");
                     }
-        
-                    Runtime.getRuntime().exec(command);
+                    
+                    processBuilder.inheritIO();  // Permite visualizar a saída no terminal
+                    Process process = processBuilder.start();
+                    process.waitFor();
         
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(Screen.this, "Erro ao tentar abrir o link: " + ex.getMessage());
+                    JOptionPane.showMessageDialog(Screen.this, "Erro ao tentar abrir o VS Code: " + ex.getMessage());
+                    ex.printStackTrace();  // Exibe erro no console
                 }
             }
         });
-        
+//      --------------------------------------
 
+//      Projects
+        JButton jButtonPro = new JButton("Projects");
+        jButtonPro.setBounds(300, 50, 200, 100);
+        jButtonPro.setForeground(Color.WHITE);
+        jButtonPro.setBackground(STR_DARK_GRAY);
+        jButtonPro.setFont(font);
+        jButtonPro.setBorder(null);
+        
+        jButtonPro.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    String os = System.getProperty("os.name").toLowerCase();
+                    ProcessBuilder processBuilder;
+                    
+                    if (os.contains("win")) {
+                        processBuilder = new ProcessBuilder("cmd", "/c", "start", "code", "C:\\Users\\lipe\\projetos");
+                    } else {
+                        processBuilder = new ProcessBuilder("/bin/sh", "-c", "cd /home/lipe/projetos && code .");
+                    }
+                    
+                    processBuilder.inheritIO();  // Permite visualizar a saída no terminal
+                    Process process = processBuilder.start();
+                    process.waitFor();
+        
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(Screen.this, "Erro ao tentar abrir o VS Code: " + ex.getMessage());
+                    ex.printStackTrace();  // Exibe erro no console
+                }
+            }
+        });
+//      --------------------------------------
+
+//  ========================================================================
+
+//  ADD-BUTTONS ======================================================================================
         add(jButtonLink);
         add(jButtonTps);
+        add(jButtonPro);
+//  ==================================================================================================
 
         setVisible(true);
     }
+
+
+
+//  LOAD FONT COMIC ==============================================================================
+    private void ComicFont() {
+        try {
+            font = Font.createFont(Font.TRUETYPE_FONT, new File("Comico.ttf")).deriveFont(40f);
+            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            ge.registerFont(font);
+        } catch (IOException | FontFormatException e) {
+            e.printStackTrace();
+            System.out.println("Erro ao carregar a fonte.");
+            font = new Font("Arial", Font.PLAIN, 40); // Fonte alternativa se der erro
+        }
+    }
+//  ==============================================================================================
 }
