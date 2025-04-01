@@ -1,5 +1,4 @@
 import java.awt.*;
-import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
 import javax.swing.*;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
@@ -21,9 +20,7 @@ public class Screen extends JFrame{
 
 //  PAGE MODEL
 
-        Color STR_DARK_GRAY = new Color(40, 40, 40);
-
-        int fWidth = 350, fHeight = 800;
+        int fWidth = 250, fHeight = 800;
         
         setTitle("Menu Page");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -45,36 +42,49 @@ public class Screen extends JFrame{
 
         jButtonPro.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                animateButtonFont(jButtonPro, 55f);
+                animateButtonFont(jButtonPro, 35f);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                animateButtonFont(jButtonPro, 45f);
+                animateButtonFont(jButtonPro, 25f);
             }
         });
 //      --------------------------------------
 //      Github
-        JButton jButtonGitH = creatButton("Github", 200, fWidth, fHeight);
+        JButton jButtonGitH = creatButton("Github", 110, fWidth, fHeight);
         jButtonGitH.addActionListener(e -> openLink("https://github.com/Lipefsk05"));
 
         jButtonGitH.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                animateButtonFont(jButtonGitH, 55f);
+                animateButtonFont(jButtonGitH, 35f);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                animateButtonFont(jButtonGitH, 45f);
+                animateButtonFont(jButtonGitH, 25f);
             }
         });
 //      --------------------------------------
 //      TPs
-        JButton jButtonTps = creatButton("Tps", 350, fWidth, fHeight);
+        JButton jButtonTps = creatButton("Tps", 170, fWidth, fHeight);
         jButtonTps.addActionListener(e -> openFolder("/home/lipe/facul/cc-puc/cc-2-periodo/tps"));
 
         jButtonTps.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                animateButtonFont(jButtonTps, 55f);
+                animateButtonFont(jButtonTps, 35f);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                animateButtonFont(jButtonTps, 45f);
+                animateButtonFont(jButtonTps, 25f);
+            }
+        });
+        //      --------------------------------------
+//      Terminal
+        JButton jButtonTerm = creatButton("Terminal", 230, fWidth, fHeight);
+        jButtonTerm.addActionListener(e -> openTerminal());
+
+        jButtonTerm.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                animateButtonFont(jButtonTerm, 35f);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                animateButtonFont(jButtonTerm, 25f);
             }
         });
 //      --------------------------------------
@@ -82,6 +92,7 @@ public class Screen extends JFrame{
         add(jButtonPro);
         add(jButtonGitH);
         add(jButtonTps);
+        add(jButtonTerm);
 
 //  ===================================================================================================================================================================================
         setVisible(true);
@@ -95,13 +106,13 @@ public class Screen extends JFrame{
 
     private void ComicFont() {
     try {
-        font = Font.createFont(Font.TRUETYPE_FONT, new File("/home/lipe/projetos/menuPage/fonts/Comico.ttf")).deriveFont(40f);
+        font = Font.createFont(Font.TRUETYPE_FONT, new File("/home/lipe/projetos/menuPage/fonts/Comico.ttf")).deriveFont(25f);
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         ge.registerFont(font);
     } catch (IOException | FontFormatException e) {
         e.printStackTrace();
         System.out.println("Erro ao carregar a fonte.");
-        font = new Font("Arial", Font.PLAIN, 45); // Fonte alternativa se der erro
+        font = new Font("Arial", Font.PLAIN, 25);
     }
     }
 
@@ -110,7 +121,7 @@ public class Screen extends JFrame{
 //      ANIMATE BUTTON FONT
 
     private void animateButtonFont(JButton button, float targetSize) {
-        Timer timer = new Timer(10, null);
+        Timer timer = new Timer(5, null);
         float initialSize = button.getFont().getSize2D();
         final float[] size = { initialSize };
 
@@ -159,7 +170,25 @@ public class Screen extends JFrame{
 
 //  ===================================================================================================================================================================================
 
+//      OPEN TERMINAL
 
+    private void openTerminal() {
+        try {
+            String os = System.getProperty("os.name").toLowerCase();
+            ProcessBuilder processBuilder;
+
+            if (os.contains("win")) {
+                processBuilder = new ProcessBuilder("cmd.exe", "/c", "start cmd");
+            } else {
+                processBuilder = new ProcessBuilder("/bin/sh", "-c", "gnome-terminal"); // Para GNOME
+                // Se usar outra interface, pode tentar "konsole" (KDE) ou "x-terminal-emulator"
+            }
+
+            processBuilder.start();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao abrir o terminal: " + e.getMessage());
+        }
+    }
 
 
 //  ===================================================================================================================================================================================
@@ -170,9 +199,10 @@ public class Screen extends JFrame{
         
         
         JButton button = new JButton(text);
-        button.setBounds((fWidth - 300)/2, posH, 300, 100);
+        button.setBounds((fWidth - 300)/2, posH, 300, 50);
         button.setForeground(Color.WHITE);
         button.setBackground(Color.DARK_GRAY);
+        // button.setBackground(Color.black);
         button.setFont(font);
         button.setBorder(null);
         button.setFocusPainted(false);
