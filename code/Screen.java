@@ -113,7 +113,7 @@ public class Screen extends JFrame{
 
     private void ComicFont() {
     try {
-        font = Font.createFont(Font.TRUETYPE_FONT, new File("/home/lipe/projetos/menuPage/fonts/Comico.ttf")).deriveFont(25f);
+        font = Font.createFont(Font.TRUETYPE_FONT, new File("/home/lipe/projetos/menuPage/fonts/Roboto.ttf")).deriveFont(25f);
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         ge.registerFont(font);
     } catch (IOException | FontFormatException e) {
