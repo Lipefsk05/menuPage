@@ -29,7 +29,7 @@ public class Screen extends JFrame{
         setLocationRelativeTo(null);
         setLayout(null);
         // setIconImage(getIconImage());
-        getContentPane().setBackground(Color.DARK_GRAY);        
+        getContentPane().setBackground(Color.darkGray);        
         
 //  ===================================================================================================================================================================================
 
@@ -39,13 +39,14 @@ public class Screen extends JFrame{
 //      Projects
         JButton jButtonPro = creatButton("Projects", 50, fWidth, fHeight);
         jButtonPro.addActionListener(e -> openFolder("/home/lipe/projetos"));
-
         jButtonPro.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                animateButtonFont(jButtonPro, 35f);
+                // animateButtonFont(jButtonPro, 35f);
+                jButtonPro.setBackground(new Color(40, 40, 40));
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                animateButtonFont(jButtonPro, 25f);
+                // animateButtonFont(jButtonPro, 25f);
+                jButtonPro.setBackground(Color.darkGray);
             }
         });
 //      --------------------------------------
@@ -55,10 +56,12 @@ public class Screen extends JFrame{
 
         jButtonGitH.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                animateButtonFont(jButtonGitH, 35f);
+                // animateButtonFont(jButtonGitH, 35f);
+                jButtonGitH.setBackground(new Color(40, 40, 40));
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                animateButtonFont(jButtonGitH, 25f);
+                // animateButtonFont(jButtonGitH, 25f);
+                jButtonGitH.setBackground(Color.darkGray);
             }
         });
 //      --------------------------------------
@@ -68,10 +71,12 @@ public class Screen extends JFrame{
 
         jButtonTps.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                animateButtonFont(jButtonTps, 35f);
+                // animateButtonFont(jButtonTps, 35f);
+                jButtonTps.setBackground(new Color(40, 40, 40));
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                animateButtonFont(jButtonTps, 25f);
+                // animateButtonFont(jButtonTps, 25f);
+                jButtonTps.setBackground(Color.darkGray);
             }
         });
         //      --------------------------------------
@@ -81,10 +86,12 @@ public class Screen extends JFrame{
 
         jButtonTerm.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                animateButtonFont(jButtonTerm, 35f);
+                // animateButtonFont(jButtonTerm, 35f);
+                jButtonTerm.setBackground(new Color(40, 40, 40));
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                animateButtonFont(jButtonTerm, 25f);
+                // animateButtonFont(jButtonTerm, 25f);
+                jButtonTerm.setBackground(Color.darkGray);
             }
         });
 //      --------------------------------------
@@ -200,8 +207,8 @@ public class Screen extends JFrame{
         
         JButton button = new JButton(text);
         button.setBounds((fWidth - 300)/2, posH, 300, 50);
-        button.setForeground(Color.WHITE);
-        button.setBackground(Color.DARK_GRAY);
+        button.setForeground(Color.white);
+        button.setBackground(Color.darkGray);
         // button.setBackground(Color.black);
         button.setFont(font);
         button.setBorder(null);
