@@ -1,7 +1,8 @@
 import java.util.*;
 
-public class Main{
+public class menuPage{
     public static void main(String[] args){
         new Screen();
+
     }
 }
