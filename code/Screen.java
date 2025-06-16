@@ -79,7 +79,7 @@ public class Screen extends JFrame{
                 jButtonTps.setBackground(Color.darkGray);
             }
         });
-        //      --------------------------------------
+//      --------------------------------------
 //      Terminal
         JButton jButtonTerm = creatButton("Terminal", 230, fWidth, fHeight);
         jButtonTerm.addActionListener(e -> openTerminal());
@@ -95,11 +95,27 @@ public class Screen extends JFrame{
             }
         });
 //      --------------------------------------
+//      TPs
+        JButton jButtonBeecrowd = creatButton("Beecrowd", 290, fWidth, fHeight);
+        jButtonBeecrowd.addActionListener(e -> openFolder("/home/lipe/facul/code-lab/beecrowd"));
+
+        jButtonBeecrowd.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                // animateButtonFont(jButtonBeecrowd, 35f);
+                jButtonBeecrowd.setBackground(new Color(40, 40, 40));
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                // animateButtonFont(jButtonBeecrowd, 25f);
+                jButtonBeecrowd.setBackground(Color.darkGray);
+            }
+        });
+//      --------------------------------------
 //      Add
         add(jButtonPro);
         add(jButtonGitH);
         add(jButtonTps);
         add(jButtonTerm);
+        add(jButtonBeecrowd);
 
 //  ===================================================================================================================================================================================
         setVisible(true);
@@ -187,7 +203,7 @@ public class Screen extends JFrame{
             if (os.contains("win")) {
                 processBuilder = new ProcessBuilder("cmd.exe", "/c", "start cmd");
             } else {
-                processBuilder = new ProcessBuilder("/bin/sh", "-c", "gnome-terminal"); // Para GNOME
+                processBuilder = new ProcessBuilder("/bin/sh", "-c", "kitty"); // Para GNOME
                 // Se usar outra interface, pode tentar "konsole" (KDE) ou "x-terminal-emulator"
             }
 
